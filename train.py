@@ -4,7 +4,7 @@ from torch.optim import Adam
 from torch.nn import CrossEntropyLoss
 
 import numpy as np
-
+from timeit import default_timer
 
 from dataset import EGGDataset
 from model import LinearNet
@@ -35,6 +35,7 @@ def main():
     optimizer = Adam(net.parameters(), lr=lr)
     criterion = CrossEntropyLoss()
 
+    timers = [default_timer()]
     for epoch in range(num_epoch):
         print(f"----- Epoch {epoch:>5d}/{num_epoch} -----")
 
@@ -64,8 +65,8 @@ def main():
         average_loss = np.mean(all_losses)
         metrics = ClassificationMetrics(truths=all_labels, outputs=all_outs)
         print("-"*20)
-        print(f"Average loss: {average_loss:.4f} "
-              f"Accuracy: {metrics.accuracy:.2%}")
+        print(f"Training loss: {average_loss:.4f}"
+              f"| Training accuracy: {metrics.accuracy:.2%}")
 
         # evaluation on test set
         net.eval()
@@ -83,6 +84,9 @@ def main():
         test_metrics = ClassificationMetrics(
             truths=all_test_labels, outputs=all_test_outs)
         test_metrics.print_report()
+
+        timers.append(default_timer())
+        print(f"Epoch time: {timers[-1] - timers[-2]:.2f}s")
 
         print('\n')
 

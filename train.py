@@ -7,7 +7,7 @@ import numpy as np
 from timeit import default_timer
 
 from dataset import EGGDataset
-from model import LinearNet
+from model import LinearNet, LSTMNet
 from metric import ClassificationMetrics
 
 mat_path = "/userhome/cs/u3568880/EGG_AI_competition/data_EEG_AI.mat"
@@ -32,7 +32,7 @@ def main():
     net = LinearNet(num_class=26, num_channel=24,
                     num_time_point=801).to(device)
 
-    optimizer = Adam(net.parameters(), lr=lr)
+    optimizer = Adam(net.parameters(), lr=lr, weight_decay=0.005)
     criterion = CrossEntropyLoss()
 
     timers = [default_timer()]

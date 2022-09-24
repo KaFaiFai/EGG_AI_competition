@@ -30,6 +30,7 @@ class LinearNet(nn.Module):
             nn.Linear(num_time_point//4*num_channel,
                       num_time_point//4*num_channel*2),
             nn.PReLU(1),
+            nn.Dropout(p=0.001),
             nn.Linear(num_time_point//4*num_channel*2, num_class),
             # nn.Softmax(dim=1),
         )
@@ -44,6 +45,33 @@ class LinearNet(nn.Module):
     def __repr__(self):
         return f"LinearNet({self.num_class})"
 
+
+class LSTMNet(nn.Module):
+    def __init__(self, num_class, num_channel, num_time_point):
+        super().__init__()
+        self.num_class = num_class
+        self.num_channel = num_channel
+        self.num_time_point = num_time_point
+
+        self.lstm = nn.LSTM(num_time_point, num_time_point, 2, batch_first=True, dropout=0.05)
+
+        self.flatten = nn.Flatten()
+
+        self.feed_forward = nn.Sequential(
+            nn.Linear(num_channel,
+                      num_channel*2),
+            nn.PReLU(1),
+            nn.Linear(num_channel*2, num_class),
+        )
+
+    def forward(self, x):
+        x = self.lstm(x)[0][:, :, -1]
+        x = self.flatten(x)
+        x = self.feed_forward(x)
+        return x
+
+    def __repr__(self):
+        return f"LSTMNet({self.num_class})"
 
 def test():
     net = LinearNet(26, 24, 801)

@@ -10,12 +10,9 @@ from dataset import EGGDataset
 from model import LinearNet, LSTMNet
 from metric import ClassificationMetrics
 
-torch.manual_seed(42)
-np.random.seed(42)
-
 mat_path = "/userhome/cs/u3568880/EGG_AI_competition/data_EEG_AI.mat"
-# model_path = None
-model_path = "EGG_LinearNet.pt"
+model_path = None
+# model_path = "EGG_LinearNet.pt"
 
 def main():
     device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -27,6 +24,8 @@ def main():
     dataset = EGGDataset(mat_path)
     train_length = len(dataset) * 4 // 5
     test_length = len(dataset) - train_length
+    torch.manual_seed(42)
+    np.random.seed(42)
     train_dataset, test_dataset = random_split(
         dataset, [train_length, test_length])
 

@@ -10,6 +10,13 @@ put file in `./data_EEG_AI.mat`
 ## Environment
 ```bash
 conda env create -f environment.yml
+conda activate egg
+```
+
+## To evaluate model
+download pretrain [here]()
+```bash
+python info.py
 ```
 
 ## To see info of dataset and environment

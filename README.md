@@ -14,7 +14,7 @@ conda activate egg
 ```
 
 ## To evaluate model
-download pretrained model [here](https://drive.google.com/file/d/11-CBZ1Q5R4dgLLI041sGoXbZ9MYzbk4C/view?usp=sharing)
+download pretrained model [here](https://drive.google.com/file/d/11-CBZ1Q5R4dgLLI041sGoXbZ9MYzbk4C/view?usp=sharing) and put it in the root of the project folder (i.e. EGG_AI_competition/EGG_LinearNet.pt)
 ```bash
 python eval.py
 ```

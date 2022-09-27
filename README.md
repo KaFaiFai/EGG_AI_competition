@@ -14,7 +14,7 @@ conda activate egg
 ```
 
 ## To evaluate model
-download pretrained model [here](https://drive.google.com/file/d/1w6CuNZurj6nHmdLc-cwS3rGG9K28INmq/view?usp=sharing)
+download pretrained model [here](https://drive.google.com/file/d/11-CBZ1Q5R4dgLLI041sGoXbZ9MYzbk4C/view?usp=sharing)
 ```bash
 python eval.py
 ```
